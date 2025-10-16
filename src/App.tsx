@@ -12,8 +12,8 @@ const AcceleratingMusicPlayer = () => {
   const [maxSpeed, setMaxSpeed] = useState(2.0);
   const [acceleration, setAcceleration] = useState(0.5);
 
-  const audioRef = useRef(null);
-  const speedIntervalRef = useRef(null);
+  const audioRef = useRef<audio>(null);
+  const speedIntervalRef = useRef(0.0);
 
   // Start speed acceleration interval
   useEffect(() => {
@@ -55,6 +55,7 @@ const AcceleratingMusicPlayer = () => {
     if (!file) return;
 
     const url = URL.createObjectURL(file);
+    // Seems like a weird way to do it.
     setCurrentTrack({
       name: file.name.replace(/\.[^/.]+$/, ""),
       fileName: file.name,
@@ -96,7 +97,7 @@ const AcceleratingMusicPlayer = () => {
   };
 
   // Format time display
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: GLfloat) => {
     if (isNaN(seconds)) return "0:00";
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
@@ -123,7 +124,8 @@ const AcceleratingMusicPlayer = () => {
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 p-4">
+    <>
+    <div className="">
       <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/20 max-w-xl w-full">
         <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
           🚀 Accelerating Player
@@ -245,9 +247,10 @@ const AcceleratingMusicPlayer = () => {
         />
       </div>
     </div>
-  );
+  </>);
 };
 
+// Making this a new file will help with the "any" type errors.
 const SettingRow = ({ label, value, onChange, min, max, step }) => {
   return (
     <div className="flex justify-between items-center">
