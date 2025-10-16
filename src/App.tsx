@@ -126,16 +126,16 @@ const AcceleratingMusicPlayer = () => {
   return (
     <>
     <div className="">
-      <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-10 shadow-2xl border border-white/20 max-w-xl w-full">
-        <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+      <div className="">
+        <h1 className="">
           🚀 Accelerating Player
         </h1>
 
         {/* File Input */}
-        <div className="mb-8 text-center">
+        <div className="">
           <label
             htmlFor="audioFile"
-            className="inline-block px-8 py-4 bg-gradient-to-r from-red-500 to-orange-600 rounded-full cursor-pointer hover:translate-y-[-2px] hover:shadow-lg transition-all font-bold uppercase tracking-wider text-white"
+            className=""
           >
             Choose Music File
           </label>
@@ -149,11 +149,11 @@ const AcceleratingMusicPlayer = () => {
         </div>
 
         {/* Track Info */}
-        <div className="mb-8 min-h-[60px] text-center">
-          <div className="text-xl font-bold text-white mb-1">
+        <div className="">
+          <div className="">
             {currentTrack ? currentTrack.name : "No track selected"}
           </div>
-          <div className="text-sm text-white/80">
+          <div className="">
             {currentTrack
               ? `File: ${currentTrack.fileName}`
               : "Select an audio file to begin"}
@@ -161,30 +161,30 @@ const AcceleratingMusicPlayer = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="mb-6">
-          <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden mb-3">
+        <div className="">
+          <div className="">
             <div
-              className="h-full bg-gradient-to-r from-teal-400 to-green-500 transition-all duration-100"
+              className=""
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="flex justify-between text-sm text-white/80">
+          <div className="">
             <span>{formatTime(currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
         </div>
 
         {/* Controls */}
-        <div className="flex justify-center gap-5 mb-8">
+        <div className="">
           <button
             onClick={seekBackward}
-            className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 to-indigo-700 text-white text-xl hover:scale-110 transition-transform shadow-lg"
+            className=""
           >
             <ArrowLeftToLine />
           </button>
           <button
             onClick={togglePlay}
-            className={`w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-indigo-700 text-white text-2xl hover:scale-110 transition-transform shadow-lg ${
+            className={`${
               isPlaying ? "animate-pulse" : ""
             }`}
           >
@@ -192,25 +192,25 @@ const AcceleratingMusicPlayer = () => {
           </button>
           <button
             onClick={seekForward}
-            className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-600 to-indigo-700 text-white text-xl hover:scale-110 transition-transform shadow-lg"
+            className=""
           >
             ⏭
           </button>
         </div>
 
         {/* Speed Info */}
-        <div className="bg-white/10 rounded-2xl p-6 mb-6">
-          <div className="text-3xl font-bold text-teal-300 mb-2 text-center">
+        <div className="">
+          <div className="">
             {playbackSpeed.toFixed(2)}x
           </div>
-          <div className="text-sm text-white/50 text-center leading-relaxed">
+          <div className="">
             <p>Speed increases as the song progresses.</p>
             <p>The longer you listen, the faster it gets!</p>
           </div>
         </div>
 
         {/* Settings */}
-        <div className="bg-white/10 rounded-2xl p-6 space-y-4">
+        <div className="">
           <SettingRow
             label="Start Speed:"
             value={startSpeed}
@@ -262,7 +262,7 @@ const SettingRow = ({ label, value, onChange, min, max, step }) => {
         min={min}
         max={max}
         step={step}
-        className="w-24 px-3 py-2 rounded-lg bg-white/20 text-white text-center border-none focus:outline-none focus:ring-2 focus:ring-teal-400"
+        className=""
       />
     </div>
   );
