@@ -57,7 +57,8 @@ const AcceleratingMusicPlayer = () => {
   }, [isPlaying, startSpeed, maxSpeed, acceleration]);
 
   // Handle file upload
-  const handleFileChange = (e) => {
+  // https://stackoverflow.com/a/62999947 for file type on e.
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -260,7 +261,7 @@ const AcceleratingMusicPlayer = () => {
 interface SettingRowProps {
   label: string;
   value: string|number;
-  onChange: (arg0: any) => void;
+  onChange: (arg0: React.ChangeEvent<HTMLInputElement>) => void;
   min: string|number;
   max: string|number;
   step: string|number;
