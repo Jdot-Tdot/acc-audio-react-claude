@@ -2,8 +2,15 @@ import { useState, useEffect, useRef } from "react";
 
 import { ArrowLeftToLine } from "lucide-react";
 
+interface trackType {
+  name: string;
+  fileName: string;
+  url: string;
+}
+
+
 const AcceleratingMusicPlayer = () => {
-  const [currentTrack, setCurrentTrack] = useState(null);
+  const [currentTrack, setCurrentTrack] = useState<trackType | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -12,7 +19,7 @@ const AcceleratingMusicPlayer = () => {
   const [maxSpeed, setMaxSpeed] = useState(2.0);
   const [acceleration, setAcceleration] = useState(0.5);
 
-  const audioRef = useRef<audio>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const speedIntervalRef = useRef(0.0);
 
   // Start speed acceleration interval
@@ -250,8 +257,18 @@ const AcceleratingMusicPlayer = () => {
   </>);
 };
 
+interface SettingRowProps {
+  label: string;
+  value: string|number;
+  onChange: (arg0: any) => void;
+  min: string|number;
+  max: string|number;
+  step: string|number;
+}
+
+
 // Making this a new file will help with the "any" type errors.
-const SettingRow = ({ label, value, onChange, min, max, step }) => {
+const SettingRow = ({ label, value, onChange, min, max, step }: SettingRowProps) => {
   return (
     <div className="flex justify-between items-center">
       <span className="text-sm font-bold text-white">{label}</span>
