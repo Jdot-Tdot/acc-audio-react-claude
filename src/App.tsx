@@ -6,9 +6,24 @@ console.log(blob)
 
 interface trackType {
   name: string;
-  fileName: string;
-  url: string;
+  imageName: string;
+  audioName: string;
+  next?: number;
 }
+
+const tracks: Array<trackType> = [
+  {name: "Awesome Call",
+  imageName: "./assets/Awesome Call.jpg",
+  audioName:"./assets/Awesome Call.mp3",
+  next:1},
+{name: "Casa Bossa Nova",
+imageName: "./assets/Cassa Nova.jpg",
+audioName:"./assets/Casa Bossa Nova.mp3",
+next:2},
+  {name: "Confused State",
+  imageName: "./assets/Confused State.jpg",
+  audioName:"./assets/Confused State.mp3",
+  next:0}]
 
 
 const AcceleratingMusicPlayer = () => {
@@ -56,7 +71,9 @@ const AcceleratingMusicPlayer = () => {
         clearInterval(speedIntervalRef.current);
       }
     };
-  }, [isPlaying, startSpeed, maxSpeed, acceleration]);
+  }, 
+  // Basically if any of these changes, then they are 
+  [isPlaying, startSpeed, maxSpeed, acceleration]);
 
   // Handle file upload
   // https://stackoverflow.com/a/62999947 for file type on e.
@@ -69,8 +86,8 @@ const AcceleratingMusicPlayer = () => {
     // Seems like a weird way to do it.
     setCurrentTrack({
       name: file.name.replace(/\.[^/.]+$/, ""),
-      fileName: file.name,
-      url: url,
+      imageName: file.name,
+      audioName: url,
     });
 
     if (audioRef.current) {
@@ -166,7 +183,7 @@ const AcceleratingMusicPlayer = () => {
           </div>
           <div className="">
             {currentTrack
-              ? `File: ${currentTrack.fileName}`
+              ? `File: ${currentTrack.imageName}`
               : "Select an audio file to begin"}
           </div>
         </div>
