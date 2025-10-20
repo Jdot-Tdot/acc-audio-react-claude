@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowLeftToLine, ArrowRightToLine, Pause, Play} from "lucide-react";
 import { SettingRow } from "./SettingRow";
+import blob from './assets/Confused State.mp3';
+console.log(blob)
 
 interface trackType {
   name: string;
@@ -59,6 +61,7 @@ const AcceleratingMusicPlayer = () => {
   // Handle file upload
   // https://stackoverflow.com/a/62999947 for file type on e.
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
     const file = e.target.files[0];
     if (!file) return;
 
@@ -218,7 +221,7 @@ const AcceleratingMusicPlayer = () => {
         </div>
 
         {/* Settings */}
-        <div className="">
+        <div className="hidden">
           <SettingRow
             label="Start Speed:"
             value={startSpeed}
