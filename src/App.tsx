@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowLeftToLine, ArrowRightToLine, Pause, Play} from "lucide-react";
+import { ArrowLeftToLine, ArrowRightToLine, Pause, Play, ArrowBigRight} from "lucide-react";
 import { SettingRow } from "./SettingRow";
 import blob from './assets/Confused State.mp3';
 console.log(blob)
@@ -228,6 +228,13 @@ const AcceleratingMusicPlayer = () => {
             <ArrowRightToLine />
           </button>
         </div>
+
+        <button
+        onClick={handleEnded}
+        className=""
+        >
+          <ArrowBigRight />
+        </button>
 
         {/* Speed Info */}
         <div className="">
