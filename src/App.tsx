@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowLeftToLine } from "lucide-react";
+import { ArrowLeftToLine, ArrowRightToLine, Pause, Play} from "lucide-react";
 import { SettingRow } from "./SettingRow";
 
 interface trackType {
@@ -83,10 +83,10 @@ const AcceleratingMusicPlayer = () => {
     }
 
     if (isPlaying) {
-      audioRef.current.pause();
+      audioRef.current?.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play();
+      audioRef.current?.play();
       setIsPlaying(true);
     }
   };
@@ -136,7 +136,7 @@ const AcceleratingMusicPlayer = () => {
     <div className="">
       <div className="">
         <h1 className="">
-          🚀 Accelerating Player
+          Accelerating Player
         </h1>
 
         {/* File Input */}
@@ -196,13 +196,13 @@ const AcceleratingMusicPlayer = () => {
               isPlaying ? "animate-pulse" : ""
             }`}
           >
-            {isPlaying ? "⏸" : "▶"}
+            {isPlaying ? <Pause /> : <Play />}
           </button>
           <button
             onClick={seekForward}
             className=""
           >
-            ⏭
+            <ArrowRightToLine />
           </button>
         </div>
 
