@@ -8,26 +8,26 @@ interface trackType {
   name: string;
   imageName: string;
   audioName: string;
-  next?: number;
+  next: number;
 }
 
 const tracks: Array<trackType> = [
   {name: "Awesome Call",
-  imageName: "./assets/Awesome Call.jpg",
-  audioName:"./assets/Awesome Call.mp3",
+  imageName: "src/assets/Awesome Call.jpg",
+  audioName:"src/assets/Awesome Call.mp3",
   next:1},
 {name: "Casa Bossa Nova",
-imageName: "./assets/Cassa Nova.jpg",
-audioName:"./assets/Casa Bossa Nova.mp3",
+imageName: "src/assets/Cassa Nova.jpg",
+audioName:"src/assets/Casa Bossa Nova.mp3",
 next:2},
   {name: "Confused State",
-  imageName: "./assets/Confused State.jpg",
-  audioName:"./assets/Confused State.mp3",
+  imageName: "src/assets/Confused State.jpg",
+  audioName:"src/assets/Confused State.mp3",
   next:0}]
 
 
 const AcceleratingMusicPlayer = () => {
-  const [currentTrack, setCurrentTrack] = useState<trackType | null>(null);
+  const [currentTrack, setCurrentTrack] = useState<trackType>(tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -77,23 +77,25 @@ const AcceleratingMusicPlayer = () => {
 
   // Handle file upload
   // https://stackoverflow.com/a/62999947 for file type on e.
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const file = e.target.files[0];
-    if (!file) return;
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (!e.target.files) return;
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    const url = URL.createObjectURL(file);
-    // Seems like a weird way to do it.
-    setCurrentTrack({
-      name: file.name.replace(/\.[^/.]+$/, ""),
-      imageName: file.name,
-      audioName: url,
-    });
+  //   const url = URL.createObjectURL(file);
+  //   // Seems like a weird way to do it.
+  //   setCurrentTrack({
+  //     name: file.name.replace(/\.[^/.]+$/, ""),
+  //     imageName: file.name,
+  //     audioName: url,
+  //   });
 
-    if (audioRef.current) {
-      audioRef.current.src = url;
-    }
-  };
+  //   if (audioRef.current) {
+  //     audioRef.current.src = url;
+  //   }
+  // };
+
+  //setCurrentTrack(tracks[0])
 
   // Handle play/pause
   const togglePlay = () => {
@@ -145,8 +147,12 @@ const AcceleratingMusicPlayer = () => {
 
   const handleEnded = () => {
     setIsPlaying(false);
+    setCurrentTrack(
+      tracks[currentTrack.next]
+    );
     audioRef.current.playbackRate = startSpeed;
     setPlaybackSpeed(startSpeed);
+    setIsPlaying(true);
   };
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -159,7 +165,7 @@ const AcceleratingMusicPlayer = () => {
           Accelerating Player
         </h1>
 
-        {/* File Input */}
+        {/* File Input
         <div className="">
           <label
             htmlFor="audioFile"
@@ -174,25 +180,22 @@ const AcceleratingMusicPlayer = () => {
             accept="audio/*"
             onChange={handleFileChange}
           />
-        </div>
+        </div> */}
 
         {/* Track Info */}
         <div className="">
           <div className="">
             {currentTrack ? currentTrack.name : "No track selected"}
           </div>
-          <div className="">
-            {currentTrack
-              ? `File: ${currentTrack.imageName}`
-              : "Select an audio file to begin"}
-          </div>
+          <img className="" src={`${currentTrack?.imageName}`}>
+          </img>
         </div>
 
         {/* Progress Bar */}
         <div className="">
-          <div className="">
+          <div className="w-8 bg-amber-50 h-2">
             <div
-              className=""
+              className="bg-amber-900 h-full"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -268,6 +271,7 @@ const AcceleratingMusicPlayer = () => {
         {/* Hidden Audio Element */}
         <audio
           ref={audioRef}
+          src={currentTrack?.audioName}
           onLoadedMetadata={handleLoadedMetadata}
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleEnded}
